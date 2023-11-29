@@ -1,0 +1,26 @@
+<% layout('layouts/boilerplate') -%>
+<%- include('../partials/flash') %>
+
+<section class="container-fluid d-flex flex-wrap gap-2 justify-content-center">
+  <% for (let product of products) { %>
+    <div class="product-card card card-transition" data-product-id="<%= product._id %>">
+      <img src="<%= product.image %>" class="card-img-top mt-1" alt="...">
+      <span class="span">
+        <p class="d-inline p2"><%= product.avgRating %> <span style="color: goldenrod; font-size: 15px;">&starf;</span></p>
+        <p class="d-inline"><%= product.reviews.length %> Ratings</p>
+      </span>
+      <div class="card-body text-center">
+        <h6 class="card-title"><%= product.brand %></h6>
+        <div class="card-desc">
+          <p class="truncate-text"><%= product.description %></p>
+        </div>
+        <h5 class="card-text" id="price"><%= product.price %>
+          <% if (product.mrp && product.mrp > product.price) { %>
+            <span class="text-muted" style="font-size: 1rem;">M.R.P. &#8377;<span style="font-size: .90rem; text-decoration: line-through;"><%= product.mrp %></span> </span>
+            <span class="text-danger" style="font-size: 0.8rem;"><span>&#40;<%= Math.round(((product.mrp - product.price) / product.mrp) * 100) %>% OFF&#41;</span></span>
+          <% } %>
+        </h5>
+      </div>
+    </div>
+  <% } %>
+</section>

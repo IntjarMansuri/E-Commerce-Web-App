@@ -1,0 +1,178 @@
+/* Navbar.....*/
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background-color: #f8f9fa;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    transition: top 0.3s;
+}
+
+.nav-link {
+    display: flex;
+    flex-direction: column;
+    font-weight: 700;
+    align-items: center;
+    font-size: 0.9em;
+    font-family: 'Josefin Sans';
+}
+
+.nav-link i {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+.nav-item {
+    margin-left: 15px;
+    border-bottom: 2px solid transparent;
+}
+
+.nav-item:hover {
+    border-color: chocolate;
+}
+
+.input-group{
+    margin-top: 5px;
+}
+
+#search-bar {
+    margin-left: 150px;
+    margin-bottom: 5px
+}
+
+.btn-outline-dark {
+    color: #adb5bd;
+    border-color: #adb5bd;
+
+}
+
+.input {
+    background-color: #f8f9fa;
+    border: 1px solid #adb5bd;
+}
+
+/* Index Page .......*/
+body {
+    padding-top: 70px;
+}
+
+main {
+    margin-top: 1.5rem;
+}
+
+.card {
+    width: 17rem;
+    align-items: center;
+}
+
+.card img {
+    width: 11em;
+    height: 280px;
+}
+
+.card-desc {
+    max-width: 100%;
+    line-height: 1.2em;
+    max-height: 2.4em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+#price::before {
+    content: "\20B9";
+    font-size: 0.75em;
+    vertical-align: top;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.card-transition {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-transition:hover {
+    transform: scale(1.02);
+}
+
+/* Show Page...... */
+
+#mainImage {
+    width: 24rem;
+    height: 36rem;
+    padding: 2px;
+}
+
+.star-rating {
+    color: gold;
+    font-size: 24px;
+}
+
+.ratings {
+    display: inline;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    padding: 0 5px;
+    cursor: pointer;
+}
+
+.p1 {
+    border-right: 1px solid #e5e5e5;
+}
+
+.ratings:hover {
+    border: 1px solid black;
+}
+
+.span {
+    position: absolute;
+    top: 62%;
+    left: 5%;
+    display: inline-block;
+    width: 86px;
+    height: 23px;
+    font-size: 10px;
+    border-radius: 2px;
+    padding: 0 5px;
+    background-color: #e5e5e5;
+}
+
+.p2 {
+    border-right: 1px solid black;
+}
+
+/* Flash Alert */
+
+.flash-text {
+    margin-top: -12px;
+    margin-bottom: -2rem;
+}
+
+.alert-dismissible .btn-close {
+    position: absolute;
+    top: 5px;
+    right: 0px;
+    z-index: 0;
+    padding: 0.25rem 1rem;
+}
+
+/* Wishlist Icon */
+.like-button {
+    font-size: 1.8em;
+    position: absolute;
+    top: 2px;
+    right: 12px;
+    z-index: 1;
+}
+
+.fas.fa-heart {
+    color: red;
+}
+
+.fas.fa-heart:hover {
+    cursor: pointer;
+}

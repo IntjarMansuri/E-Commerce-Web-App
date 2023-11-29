@@ -1,0 +1,38 @@
+<% layout('layouts/boilerplate') -%>
+
+<div class="form-container">
+    <h2 class="h2 text-center">Create Account</h2>
+    <div class="row newForm">
+        <div class="col mx-auto">
+            <%- include('../partials/flash') %>
+            <form class="needs-validation" action="/signup" method="POST" novalidate>
+                <div class="mb-3">
+                  <label for="username" class="form-label">Your name</label>
+                  <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameHelp" placeholder="Enter your name" required>
+                </div>
+                <div class="mb-3">
+                  <label for="email" class="form-label">Email</label>
+                  <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Enter your fassword" required>
+                </div>
+                <div class="mb-3">
+                    <span class="mb-2">Signup as:</span>
+                    <span><div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="buyerRadio" name="role" value="buyer" checked>
+                        <label class="form-check-label" for="buyerRadio">Buyer</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input type="radio" class="form-check-input" id="sellerRadio" name="role" value="seller">
+                        <label class="form-check-label" for="sellerRadio">Seller</label>
+                    </div></span>
+                </div>
+                
+                <button type="submit" class="btn btn-warning">Continue</button>
+                <p class="mt-3">Already have an acoount? <a id="login" href="/login">Log In</a></p>
+            </form>
+        </div>
+    </div>
+</div>

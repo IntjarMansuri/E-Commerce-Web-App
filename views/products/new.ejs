@@ -1,0 +1,41 @@
+<%= layout('layouts/boilerplate') %>
+
+<div class="row">
+    <div class="col-md-4 mx-auto">
+        <form class="needs-validation" action="/products" method="POST" novalidate>
+            <div class="mb-3">
+              <label for="brand" class="form-label">Product Brand Name</label>
+              <input type="text" class="form-control" id="brand" name="brand" placeholder="Product brand name" required>
+            </div>
+            <div class="mb-3">
+              <label for="image" class="form-label">Product Image URL</label>
+              <input type="text" class="form-control" id="image" name="image" placeholder="Product image URL" required>
+            </div>
+            <div class="mb-3">
+              <label for="price" class="form-label">Product Price and MRP</label>
+              <div class="input-group">
+                <span class="input-group-text">&#8377;</span>
+                <input type="number" class="form-control" id="price" name="price" placeholder="Product price" required>
+                <span class="input-group-text">MRP</span>
+                <input type="number" class="form-control" id="mrp" name="mrp" placeholder="Products MRP" required>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="category" class="form-label">Product Category</label>
+              <select id="category" name="category" required>
+                <option value="mens">Mens</option>
+                <option value="women">Women</option>
+                <option value="kids">Kids</option>
+                <option value="beauty">Beauty</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="description" class="form-label">Product Description</label>
+              <textarea type="text" class="form-control" id="description" name="description" placeholder="Product description" rows="3" required></textarea>
+            </div>
+            <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+    </div>
+</div>

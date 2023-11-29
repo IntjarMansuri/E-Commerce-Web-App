@@ -1,0 +1,14 @@
+
+<% if (success && success.length) { %>
+    <div class="alert alert-success alert-dismissible fade show justify-content-center mb-3 align-items-center" role="alert" style="max-width: 1000px; max-height: 50px; margin: 0 auto;">
+        <p class="flash-text"><%= success %></p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% } %>
+
+<% if (reject && reject.length) { %>
+    <div class="alert alert-danger alert-dismissible fade show justify-content-center mb-3 align-items-center" role="alert" style="max-width: 1000px; max-height: 40px; margin: 0 auto;">
+        <p class="flash-text"><%= reject %></p>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<% } %>
