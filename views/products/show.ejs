@@ -1,101 +1,162 @@
 <%= layout('layouts/boilerplate') %>
 
 <div class="container">
-    <%- include('../partials/flash') %>
-    <div class="row">
-        <div class="col-lg-5 col-sm-12 mx-auto">           
-            <div class="card mx-auto" style="width: 30rem; height: 36rem;">
-                <img id="mainImage" src="<%= product.image %>" alt="<%= product.name %>">
-                <div class="like-button">
-                    <% if (currentUser && currentUser.wishlist.includes(product._id)) { %>
-                      <i class="fas fa-heart product-like-button" product-id="<%= product._id %>"></i>
-                    <% } else { %>
-                      <i class="far fa-heart product-like-button" product-id="<%= product._id %>"></i>
-                    <% } %>
-                </div> 
-            </div>
+  <%- include('../partials/flash') %>
+  <div class="row">
+    <div class="col-lg-5 col-sm-12 mx-auto">
+      <div class="card mx-auto" style="width: 30rem; height: 36rem">
+        <img
+          id="mainImage"
+          src="<%= product.image %>"
+          alt="<%= product.name %>"
+        />
+        <div class="like-button">
+          <% if (currentUser && currentUser.wishlist.includes(product._id)) { %>
+          <i
+            class="fas fa-heart product-like-button"
+            product-id="<%= product._id %>"
+          ></i>
+          <% } else { %>
+          <i
+            class="far fa-heart product-like-button"
+            product-id="<%= product._id %>"
+          ></i>
+          <% } %>
         </div>
-        <div class="col-lg-4 col-sm-12 mx-auto">
-            <h3 class="card-text"> <%= product.brand %></h3>
-            <p class="card-text"><%= product.description %></p>
-            <div class="ratings py-1">
-                <p class="d-inline p1"><%= product.avgRating %> <span style="color: goldenrod; font-size: 20px;">&starf;</span></p>
-                <p class="d-inline"><%= product.reviews.length %> Ratings</p>
-            </div>
-            <hr> 
-            <h2 class="card-text">
-                &#8377;<%= product.price %>
-                <% if (product.mrp && product.mrp > product.price) { %>
-                  <span class="text-muted" style="font-size: 1.5rem;">M.R.P. &#8377;<span style="font-size: 1.4rem; text-decoration: line-through;"><%= product.mrp %></span> </span>
-                  <span class="text-danger" style="font-size: 1.2rem;"><span>&#40;<%= Math.round(((product.mrp - product.price) / product.mrp) * 100) %>% OFF&#41;</span></span>
-                <% } %>
-                <p style="color: darkgreen; font-size: medium;">Inclusive of all taxes</p>
-            </h2>
-            <a href="#" class="btn btn-outline-primary">
-                <i class="fas fa-shopping-bag"></i> Add to Bag
-            </a>
-            <a href="" class="btn btn-outline-warning">Buy Now
-            </a>
-            <% if (currentUser && currentUser.role === 'seller' && (product.author && product.author.equals(currentUser._id))) { %>
-                <a href="/products/<%= product._id %>/edit" class="btn btn-outline-primary">
-                    <i class="far fa-edit"></i> Edit
-                </a>
-                <form class="d-inline" action="/products/<%= product.id %>?_method=DELETE" method="POST">
-                    <button class="btn btn-outline-danger"><i class="fas fa-trash"></i> Delete</button>
-                </form>
-            <% } %>
-            <hr>
-            <h4 class="card-text">Review this product</h4>
-            <hr>
-            <form class="needs-validation" action="/products/<%= product._id %>/review" method="POST" novalidate>
-                <div class="starability-basic mb-1">
-                    <h5>Overall Rating</h5>
-                    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
-                    <input type="radio" id="first-rate1" name="rating" value="1" />
-                    <label for="first-rate1" title="Terrible">1 star</label>
-                    <input type="radio" id="first-rate2" name="rating" value="2" />
-                    <label for="first-rate2" title="Not good">2 stars</label>
-                    <input type="radio" id="first-rate3" name="rating" value="3" />
-                    <label for="first-rate3" title="Average">3 stars</label>
-                    <input type="radio" id="first-rate4" name="rating" value="4" />
-                    <label for="first-rate4" title="Very good">4 stars</label>
-                    <input type="radio" id="first-rate5" name="rating" value="5" />
-                    <label for="first-rate5" title="Amazing">5 stars</label>
-                </div>
-                <hr class="mb-1">
-                <div class="mb-2">
-                    <label for="comment"><h5 class="mb-1">Add a written review</h5></label>
-                    <textarea class="form-control" name="comment" id="comment" cols="30" rows="3" placeholder="Share your thoughts with other customers" required></textarea>
-                </div>
-                <hr>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-sm btn-warning me-md-2" type="submit">Submit</button>
-                </div>
-            </form>
-        </div>
-        <div class="col-lg-3 col-sm-12 mx-auto">
-            <h6 class="">Customer Reviews(<%= product.reviews.length %>)</h6>
-            <div>
-                <% for (let review of product.reviews) { %>
-                    <div class="review">
-                        <div class="rating">
-                            <div class="star-rating">
-                                <%= getStars(review.rating) %> 
-                            </div> 
-                            <span class="comment"><%= review.comment %></span>
-                        </div>
-                    </div>
-                    <hr>
-                <% } %>
-            </div>
-        </div>
+      </div>
     </div>
+    <div class="col-lg-4 col-sm-12 mx-auto">
+      <h3 class="card-text"><%= product.brand %></h3>
+      <p class="card-text"><%= product.description %></p>
+      <div class="ratings py-1">
+        <p class="d-inline p1">
+          <%= product.avgRating %>
+          <span style="color: goldenrod; font-size: 20px">&starf;</span>
+        </p>
+        <p class="d-inline"><%= product.reviews.length %> Ratings</p>
+      </div>
+      <hr />
+      <h2 id="product-price" class="card-text">
+        &#8377;<%= product.price %> <% if (product.mrp && product.mrp >
+        product.price) { %>
+        <span class="text-muted" style="font-size: 1.5rem"
+          >M.R.P. &#8377;<span
+            style="font-size: 1.4rem; text-decoration: line-through"
+            ><%= product.mrp %></span
+          >
+        </span>
+        <span class="text-danger" style="font-size: 1.2rem">
+          <span
+            >&#40;<%= Math.round(((product.mrp - product.price) / product.mrp) *
+            100) %>% OFF&#41;
+          </span>
+        </span>
+        <% } %>
+        <p style="color: darkgreen; font-size: medium">
+          Inclusive of all taxes
+        </p>
+      </h2>
+      <form
+        class="d-inline"
+        action="/user/<%= product._id %>/add"
+        method="post"
+      >
+        <button class="btn btn-outline-primary">
+          <i class="fas fa-shopping-bag"></i> Add to Bag
+        </button>
+      </form>
+      <a href="#" id="buy-btn" class="btn btn-outline-warning">Buy Now </a>
+      <% if (currentUser && currentUser.role === 'seller' && (product.author &&
+      product.author.equals(currentUser._id))) { %>
+      <a
+        href="/products/<%= product._id %>/edit"
+        class="btn btn-outline-primary"
+      >
+        <i class="far fa-edit"></i> Edit
+      </a>
+      <form
+        class="d-inline"
+        action="/products/<%= product.id %>?_method=DELETE"
+        method="POST"
+      >
+        <button class="btn btn-outline-danger">
+          <i class="fas fa-trash"></i> Delete
+        </button>
+      </form>
+      <% } %>
+      <hr />
+      <h4 class="card-text">Review this product</h4>
+      <hr />
+      <form
+        class="needs-validation"
+        action="/products/<%= product._id %>/review"
+        method="POST"
+        novalidate
+      >
+        <div class="starability-basic mb-1">
+          <h5>Overall Rating</h5>
+          <input
+            type="radio"
+            id="no-rate"
+            class="input-no-rate"
+            name="rating"
+            value="0"
+            checked
+            aria-label="No rating."
+          />
+          <input type="radio" id="first-rate1" name="rating" value="1" />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="rating" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="rating" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="rating" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="rating" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </div>
+        <hr class="mb-1" />
+        <div class="mb-2">
+          <label for="comment"
+            ><h5 class="mb-1">Add a written review</h5></label
+          >
+          <textarea
+            class="form-control"
+            name="comment"
+            id="comment"
+            cols="30"
+            rows="3"
+            placeholder="Share your thoughts with other customers"
+            required
+          ></textarea>
+        </div>
+        <hr />
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button class="btn btn-sm btn-warning me-md-2" type="submit">
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+    <div class="col-lg-3 col-sm-12 mx-auto">
+      <h6 class="">Customer Reviews(<%= product.reviews.length %>)</h6>
+      <div>
+        <% for (let review of product.reviews) { %>
+        <div class="review">
+          <div class="rating">
+            <div class="star-rating"><%= getStars(review.rating) %></div>
+            <span class="comment"><%= review.comment %></span>
+          </div>
+        </div>
+        <hr />
+        <% } %>
+      </div>
+    </div>
+  </div>
 </div>
 
-<% function getStars(rating) {
-    const roundedRating = Math.round(rating);
-    const starCount = 5;
-    const fullStars = '★'.repeat(roundedRating);
-    const emptyStars = '☆'.repeat(starCount - roundedRating);
-    return `${fullStars}${emptyStars}`;
-} %>
+<% function getStars(rating) { const roundedRating = Math.round(rating); const
+starCount = 5; const fullStars = '★'.repeat(roundedRating); const emptyStars =
+'☆'.repeat(starCount - roundedRating); return `${fullStars}${emptyStars}`; } %>
+
+<script src="/javascript/payment.js"></script>
