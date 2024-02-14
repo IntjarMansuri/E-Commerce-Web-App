@@ -8,16 +8,17 @@ async function makeOrder(amount) {
       data: { amount },
       headers: { "X-Requested-With": "XMLHttpRequest" },
     });
+    console.log(response);
     const { order } = response.data;
 
     const options = {
-      key: "rzp_test_nB475rl4klTwDP", // Enter the Key ID generated from the Dashboard
-      amount: order.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      key: "rzp_test_tr0VDfvmHfMiQK",
+      amount: order.amount,
       currency: "INR",
       name: "E-Commerce",
       description: "Test Transaction",
       image: "https://example.com/your_logo",
-      order_id: order.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      order_id: order.id,
       callback_url: "http://localhost:5000/payment-verify",
       notes: {
         address: "Razorpay Corporate Office",
@@ -38,5 +39,6 @@ buyButton.addEventListener("click", (e) => {
     .querySelector("#product-price")
     .innerText.split(" ")
     .pop();
+  console.log(amount);
   makeOrder(amount);
 });

@@ -6,52 +6,70 @@ const Order = require("../../models/order");
 const {
   validatePaymentVerification,
 } = require("razorpay/dist/utils/razorpay-utils");
+
 const { RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET } = process.env;
 
 router.post("/order", isLoggedIn, async (req, res) => {
-  const instance = new Razorpay({
-    key_id: RAZORPAY_KEY_ID,
-    key_secret: RAZORPAY_KEY_SECRET,
-  });
-  const { amount } = req.body;
+  try {
+    const instance = new Razorpay({
+      key_id: RAZORPAY_KEY_ID,
+      key_secret: RAZORPAY_KEY_SECRET,
+    });
 
-  const options = {
-    amount: parseInt(amount) * 100, // amount in the smallest currency unit
-    currency: "INR",
-  };
+    const { amount } = req.body;
 
-  const order = await instance.orders.create(options);
+    if (isNaN(parseInt(amount))) {
+      return res.status(400).json({
+        success: false,
+        error: "The amount field should be a valid number.",
+      });
+    }
 
-  await Order.create({
-    _id: order.id,
-    user: req.user._id,
-    amount,
-  });
+    const options = {
+      amount: parseInt(amount) * 100,
+      currency: "INR",
+    };
 
-  res.json({
-    success: true,
-    order,
-  });
+    const order = await instance.orders.create(options);
+    await Order.create({
+      _id: order.id,
+      user: req.user._id,
+      amount,
+    });
+
+    res.json({
+      success: true,
+      order,
+    });
+  } catch (error) {
+    console.error("Error creating order:", error);
+    res.status(500).json({ success: false, error: "Failed to create order" });
+  }
 });
 
 router.post("/payment-verify", async (req, res) => {
-  const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
-    req.body;
+  try {
+    const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
+      req.body;
 
-  const isValid = validatePaymentVerification(
-    { order_id: razorpay_order_id, payment_id: razorpay_payment_id },
-    razorpay_signature,
-    RAZORPAY_KEY_SECRET
-  );
-
-  if (isValid) {
-    await Order.findByIdAndUpdate(
-      { _id: razorpay_order_id },
-      { paymentStatus: true }
+    const isValid = validatePaymentVerification(
+      { order_id: razorpay_order_id, payment_id: razorpay_payment_id },
+      razorpay_signature,
+      RAZORPAY_KEY_SECRET
     );
-    res.json({ success: true, msg: "Payment Successfull" });
-  } else {
-    res.json({ success: false, msg: "Not a valid payment!" });
+
+    if (isValid) {
+      await Order.findByIdAndUpdate(
+        { _id: razorpay_order_id },
+        { paymentStatus: true }
+      );
+      res.json({ success: true, msg: "Payment Successful" });
+    } else {
+      res.json({ success: false, msg: "Not a valid payment!" });
+    }
+  } catch (error) {
+    console.error("Error verifying payment:", error);
+    res.status(500).json({ success: false, error: "Failed to verify payment" });
   }
 });
 

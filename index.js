@@ -7,15 +7,14 @@ const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 const flash = require("connect-flash");
 const session = require("express-session");
-const MongoStore = require("connect-mongo");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const MongoStore = require("connect-mongo");
 const User = require("./models/user");
 const PORT = process.env.PORT || 5000;
-const db_url = process.env.DB_URL || "mongodb://127.0.0.1:27017/eshop";
 
-mongodb: mongoose
-  .connect(db_url)
+mongoose
+  .connect("mongodb://127.0.0.1:27017/eshop")
   .then(() => {
     console.log("DB Connected!!!");
   })
@@ -35,7 +34,7 @@ const secret = process.env.SECRET;
 
 app.use(
   session({
-    store: MongoStore.create({ mongoUrl: db_url }),
+    store: MongoStore.create({ mongoUrl: "mongodb://127.0.0.1:27017/eshop" }),
     secret,
     resave: false,
     saveUninitialized: true,
@@ -44,6 +43,7 @@ app.use(
     },
   })
 );
+
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -67,13 +67,13 @@ const wishlistRoutes = require("./routes/wishlist");
 const cartRoutes = require("./routes/cart");
 
 // APIs
-const productApi = require("./routes/api/productapi");
+const productAPI = require("./routes/api/productapi");
 const paymentAPI = require("./routes/api/paymentapi");
 
 app.use(productRoutes);
 app.use(reviewRoutes);
 app.use(authRoutes);
-app.use(productApi);
+app.use(productAPI);
 app.use(wishlistRoutes);
 app.use(cartRoutes);
 app.use(paymentAPI);

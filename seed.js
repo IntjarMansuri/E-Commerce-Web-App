@@ -2,9 +2,7 @@ const mongoose = require("mongoose");
 const Product = require("./models/products");
 
 mongoose
-  .connect(
-    "mongodb+srv://intjar:mansuri@cluster0.dhixn1l.mongodb.net/?retryWrites=true&w=majority"
-  )
+  .connect("mongodb://127.0.0.1:27017/eshop")
   .then(() => {
     console.log("DB Connected!!!");
   })
