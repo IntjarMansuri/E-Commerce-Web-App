@@ -39,7 +39,7 @@ This Node.js-based E-commerce project follows the MVC (Model-View-Controller) ar
   
 - **Public:** Static assets like CSS, JavaScript, and images.
 
-### Screenshots
+### Demo
 ![Screenshot-1](https://github.com/IntjarMansuri/E-Commerce-Web-App/assets/139264242/2d6aa2ef-24bb-4d34-9398-0dd0cf9a9303)
 ![Screenshot-2](https://github.com/IntjarMansuri/E-Commerce-Web-App/assets/139264242/21af43fd-6e06-47d6-bbb3-67c46416e2e5)
 ![Screenshot-3](https://github.com/IntjarMansuri/E-Commerce-Web-App/assets/139264242/033d652c-b262-4938-ae1f-b0802e37d2b2)
